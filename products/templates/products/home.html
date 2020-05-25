@@ -1,0 +1,159 @@
+{% extends 'products/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+      <body>
+        <link href="https://css/shop-homepage.css" rel="stylesheet">
+        <!--Carousel Wrapper-->
+        <div id="carousel-example-1z" class="carousel slide carousel-fade mb-4" data-ride="carousel">
+          <!--Indicators-->
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-1z" data-slide-to="1"></li>
+            <li data-target="#carousel-example-1z" data-slide-to="2"></li>
+          </ol>
+          <!--/.Indicators-->
+          <!--Slides-->
+          <div class="carousel-inner" role="listbox">
+            <!--First slide-->
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="https://data.1freewallpapers.com/download/orange-fruit-tree-branch-960x540.jpg"
+                alt="First slide">
+                <div class="carousel-caption">
+                  <h3 class="h3-responsive">Fresh From Trees</h3>
+                  <p>Packed with Nutrients!</p>
+                </div>
+            </div>
+            <!--/First slide-->
+            <!--Second slide-->
+            <div class="carousel-item">
+              <img class="d-block w-100" src="https://static.bhphotovideo.com/explora/sites/default/files/styles/top_shot/public/ts-samsung-galaxy-unpacked-2020-s20_ultra-galaxy-z-flip-galaxy-buds.png?itok=2Wg74tUV" alt="Second slide">
+              <!-- src="https://i.imgur.com/xVOPr1z.png" -->
+                <div class="carousel-caption">
+                  <h3 class="h3-responsive tet-primary"></h3>
+                  <p>The Future Is Here</p>
+                </div>
+            </div>
+
+            <!--/Second slide-->
+            <!--Third slide-->
+            <div class="carousel-item">
+              <img class="d-block w-100" src="https://cdn.pixabay.com/photo/2018/04/06/00/25/nature-3294681_960_720.jpg" alt="Third slide">
+              <!-- src="https://sm.mashable.com/t/mashable_sea/news/a/apples-iph/apples-iphone-se-2020-is-finally-here-and-its-only-399_emts.960.jpg" -->
+              <div class="carousel-caption">
+                <h3 class="text-white">“If you want to live a happy life, tie it to a goal, not to people or things.”</h3>
+                <p>Albert Einstein</p>
+              </div>
+              <!-- src="https://www.hanuot.com/ecdata/stores/PAZPS543/image/cache/data/169504-xe3z3g-1200x400.jpg" -->
+              <!-- <h3 class="h3-responsive tet-primary">Nike</h3>
+              <p>The Way Forward</p> -->
+            </div>
+            <!--/Third slide-->
+          </div>
+          <!--/.Slides-->
+          <!--Controls-->
+          <a class="carousel-control-prev carousel-control-dark" href="#carousel-example-1z" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+          <!--/.Controls-->
+        </div>
+        <!--/.Carousel Wrapper-->
+ <!-- card.// -->
+        {% load temptag %}
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="container">
+              <form method="GET">
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary mt-4">Filter</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- <h1>List Of Items</h1>
+        <div class="row mb-4">
+          {% for item in filter.qs %}
+            <div class="col-lg-4">
+              <img class="thumbnail" src="{{ item.image_url }}">
+              <div class="box-element product">
+                <h6><strong>{{ item.title }}</strong></h6>
+                <h6 class="text-success">Category - {{ item.get_category_display }}</h6>
+                <hr>
+
+                <a class="btn btn-outline-secondary" href="{{ item.get_add_to_cart_url }}">Add to Cart</a> -->
+                <!-- <a class="btn btn-outline-success" href="{{ item.get_absolute_url }}">View Product</a>
+                {% if item.discount_price %}
+                  <h4 style="display: inline-block; float: right"><strong>${{ item.discount_price }} <span class="badge badge-warning">On Sale!</span></strong></h4>
+                {% else %}
+                  <h4 style="display: inline-block; float: right"><strong>${{ item.price }}</strong></h4>
+                {% endif %}
+
+              </div>
+
+            </div>
+          {% endfor %}
+        </div> -->
+
+        <h1 class="mb-4">List Of Items</h1>
+        <div class="row">
+          {% for item in object_list %}
+            <div class="col-md-3 col-sm-6 text-center">
+              <figure class="card card-product-grid">
+                <div class="img-wrap"> <img src="{{ item.image_url }}"> </div>
+                <figcaption class="info-wrap border-top">
+                  <h5><a href="{{ item.get_absolute_url }}" class="title text-dark text-bold">{{ item.title }}</a></h5>
+                  <h6 class="text-success">Category - {{ item.get_category_display }}</h6>
+                  {% if item.discount_price %}
+                    <div class="price mt-2">${{ item.discount_price }} <span class="badge badge-warning">On Sale!</span></div>
+                  {% else %}
+                    <div class="price mt-2">${{ item.price }}</div>
+                  {% endif %} <!-- price-wrap.// -->
+                </figcaption>
+                <!-- <a href="{{ item.get_absolute_url }}" class="btn btn-info">View Product</a> -->
+              </figure> <!-- card // -->
+            </div>
+          {% endfor %} 
+        </div><!-- row.// -->
+
+        <ul class="pagination justify-content-center">
+          {% if is_paginated %}
+
+            {% if page_obj.has_previous %}
+              <a class="btn btn-outline-dark mb-4" href="?{% paginate_url 'page' 1 request.GET.urlencode %}">First</a>
+              <a class="btn btn-outline-dark mb-4" href="?{% paginate_url 'page' page_obj.previous_page_number request.GET.urlencode %}">Previous</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+              {% if page_obj.number == num %}
+                <a class="btn btn-dark mb-4" href="?{% paginate_url 'page' num request.GET.urlencode %}">{{ num }}</a>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a class="btn btn-outline-dark mb-4" href="?{% paginate_url 'page' num request.GET.urlencode %}">{{ num }}</a>
+              {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+              <a class="btn btn-outline-dark mb-4" href="?{% paginate_url 'page' page_obj.next_page_number request.GET.urlencode %}">Next</a>
+              <a class="btn btn-outline-dark mb-4" href="?{% paginate_url 'page' page_obj.paginator.num_pages request.GET.urlencode %}">Last</a>
+            {% endif %}
+
+          {% endif %}
+        </ul>
+      </body>
+    </html>
+{% endblock content %}
+
+
+{% block footer %}
+  <footer class="py-5 bg-dark bottom">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; MyShop 2020</p>
+    </div>
+            <!-- /.container -->
+  </footer>
+{% endblock %}

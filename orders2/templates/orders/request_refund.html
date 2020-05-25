@@ -1,0 +1,46 @@
+{% extends "products/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+   <section class="mb-4">
+
+       <!--Section heading-->
+       <h2 class="h1-responsive font-weight-bold my-4">Request Refund</h2>
+
+       <div class="row">
+
+           <!--Grid column-->
+           <div class="col-md-9 mb-md-0 mb-5">
+               <form id="contact-form" name="contact-form"method="POST">
+
+                   <!--Grid row-->
+                   <div class="row">
+
+
+                       <div class="col-md-12">
+                           <div class="md-form mb-0">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                           </div>
+                       </div>
+                       <!--Grid column-->
+
+                   </div>
+                   <!--Grid row-->
+
+                   
+                   <!--Grid row-->
+                   <div class="text-center text-md-left">
+                       <button type="submit" class="btn btn-secondary">Submit</button>
+                   </div>
+                   <div class="status"></div>
+               </form>
+
+               
+           </div>
+
+       </div>
+
+   </section>
+   <!--Section: Contact v.2--> 
+{% endblock content %}

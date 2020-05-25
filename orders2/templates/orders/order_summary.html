@@ -1,0 +1,155 @@
+{% extends 'products/base.html' %} 
+{% block content %}
+  <div class="container text-black py-5 text-center">
+    <h1 class="display">MyShop Cart</h1>
+  </div>
+  <div class="container-md">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <script src="https://use.fontawesome.com/c560c025cf.js"></script>
+    <div class="container">
+       <div class="card shopping-cart">
+          <div class="card-header bg-dark text-light">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              Shopping cart
+              <a href="{% url 'myshop-home' %}" class="btn btn-outline-info btn-sm pull-right">Continue shopping</a>
+              <div class="clearfix"></div>
+          </div>
+          <!-- PRODUCT -->
+          
+            <div class="pb-5">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+                      <!-- Shopping cart table -->
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th scope="col" class="border-0 bg-light">
+                                <div class="p-2 px-3 text-uppercase">Product</div>
+                              </th>
+                              <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase">Total Item Price</div>
+                              </th>
+                              <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase">Quantity</div>
+                              </th>
+                              <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase">Remove</div>
+                              </th>
+                            </tr>
+                          </thead>
+                          {% for order_item in object.items.all %}
+                            <tbody>
+                              <tr>
+                                <th scope="row" class="border-0">
+                                  <div class="p-2">
+                                    <img src="{{ order_item.item.image_url }}" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                      <div class="ml-3 d-inline-block align-middle">
+                                        <h5 class="mb-1"> <a href="{{ order_item.item.get_absolute_url }}" class="text-dark
+                                        -inline-block align-middle">{{ order_item.item.title }}</a>
+                                        {% for var in order_item.item_variations.all %}
+                                          <!-- <h6>{{ order_item.item_variations.all }}</h6> -->
+                                          <!-- <ul> -->
+                                            <!-- <li><h6>{{ var.variation.name }}: {{ var.value }}</h6></li> -->
+                                          <!-- </ul> -->
+                                          <h6>{{ var.variation.name }}: {{ var.value }}</h6>
+                                        {% endfor %}
+                                      </div>
+                                  </div>
+                                </th>
+                                {% if order_item.item.discount_price %}
+                                  <td class="border-0 align-middle"><strong>${{ order_item.get_total_discount_item_price }} <span class="badge badge-warning">Saving ${{ order_item.get_amount_saved }}</span></strong></td>
+                                {% else %}
+                                  <td class="border-0 align-middle"><strong>${{ order_item.get_total_item_price }}</strong></td>
+                                {% endif %}
+                                    <td class="border-0 align-middle"><strong>
+                                      <div class="pull-center">
+                                        <!-- <div class="quantity">
+                                          <form method='Get' action="{% url 'add-to-cart' order_item.item.slug %}">
+                                            <input name="qty" type="number" step="1" min="1" value="{{ order_item.quantity }}" title="quantity" class="qty"size="4"/>
+                                              <input type="submit" class="btn btn-outline-secondary" value="Update Cart"/>
+                                          </form>  -->
+                                          <!-- <form class="form" method="POST" action="{{ order_item.item.get_add_to_cart_url }}">
+                                            {% csrf_token %}
+                                            <button type="submit"><i class="fa fa-plus"></i></button>
+                                          </form> -->
+                                          <form method="POST" action="{% url 'update-qty' %}">
+                                            {% csrf_token %}
+                                            <button type="submit" name="action" value="minus" class="btn mr-2"><i class="fa fa-minus"></i></button>
+                                            {{ order_item.quantity }}<button type="submit" name="action" value="plus" class="btn ml-2"><i class="fa fa-plus"></i></button>
+                                            <input type="hidden" name="item_slug" value="{{ order_item.item.slug }}">
+                                            <input type="hidden" name="order_item" value="{{ order_item.pk }}">
+                                          </form>
+                                        </div>      
+                                      </div>
+                                      </strong></td>
+                                    <td class="border-0 align-middle"><a href="{% url 'remove-from-cart' order_item.item.slug %}" class="text-dark"><i class="fa fa-trash"></i></a></td>
+                                  </tr>
+                                  {% empty %}
+                                    <tr>
+                                      <td colspan='5'>Your cart is empty</td>
+                                    </tr>
+                                    <tr>
+                                      <td colspan="5">
+                                        <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+                                      </td>
+                                    </tr>
+                                    </div>
+                                  </div>
+                                </h5>
+                            </div>
+                            </div>
+                            </th>
+                            </tr>
+                            </tbody>
+                          {% endfor %}
+          </table>
+            </div>
+            </div>
+            </div>
+          <!-- END PRODUCT -->
+              <!-- End -->
+              <div class="row py-5 p-4 bg-white rounded shadow-sm">
+                <div class="col-lg-6">
+                  <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Coupon code</div>
+                  <div class="p-4">
+                    <p class="font-italic mb-4">If you have a coupon code, please enter it in the box below</p>
+                    <div class="input-group mb-4 border rounded-pill p-2">
+                      <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3" class="form-control border-0">
+                      <div class="input-group-append border-0">
+                        <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Instructions for seller</div>
+                  <div class="p-4">
+                    <p class="font-italic mb-4">If you have some information for the seller you can leave them in the box below</p>
+                    <textarea name="" cols="30" rows="2" class="form-control"></textarea>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
+                  <div class="p-4">
+                    <p class="font-italic mb-4">Shipping and additional costs are calculated based on values you have entered.</p>
+                    <ul class="list-unstyled mb-4">
+                      <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Order Subtotal </strong><strong>${{ object.get_total }}</strong></li>
+                      <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Shipping and handling</strong><strong>$10.00</strong></li>
+                      <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tax</strong><strong>$0.00</strong></li>
+                      <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>
+                        <h5 class="font-weight-bold">${{ object.get_total }}</h5>
+                      </li>
+                    </ul><a href="/checkout/" class="btn btn-dark rounded-pill py-2 btn-block">Proceed To Checkout</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+             
+  </div>
+{% endblock %}              

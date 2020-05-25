@@ -1,0 +1,83 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block content %}
+    <title></title>
+    <h1>Searched for : {{ query }}</h1>
+    <p>Showing all results matching "{{ query }}"</p>
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="container">
+    <div class="row">
+      <!-- BEGIN SEARCH RESULT -->
+      <div class="col-md-12">
+        <div class="grid search">
+          <div class="grid-body">
+            <div class="row">
+              <!-- BEGIN FILTERS -->
+                <hr>
+                
+                <!-- BEGIN FILTER BY CATEGORY -->
+                <!-- END FILTER BY CATEGORY -->
+                
+                <div class="padding"></div>
+                
+                <!-- BEGIN FILTER BY DATE -->
+                
+                <!-- END FILTER BY PRICE -->
+              </div>
+              <!-- END FILTERS -->
+              <!-- BEGIN RESULT -->
+                <!-- END SEARCH INPUT -->
+                
+                
+                <div class="padding"></div>
+                
+                <div class="row">
+                  <!-- BEGIN ORDER RESULT -->
+                  <!-- END ORDER RESULT -->
+                  
+                  <div class="col-md-6 text-right">
+                  </div>
+                </div>
+                <table class="table">
+                  <thead>
+                    <th scope="col" class="border-0 bg-light">
+                      <div class="p-2 px-3 text-uppercase">Product</div>
+                    </th>
+                  </thead>
+                </table>
+                <!-- BEGIN TABLE RESULT -->
+                {% for item in items %}
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <tbody><tr>
+                        <td class="number text-center">{{ forloop.counter }}</td>
+                        <th scope="row" class="border-0">
+                          <div class="p-2">
+                            <img src="{{ item.image_url }}" alt="" width="70" class="img-fluid rounded shadow-sm">
+                            <div class="ml-3 d-inline-block align-middle">
+                              <h5 class="mb-0"> <a href="{{ item.get_absolute_url }}" class="text-dark d-inline-block align-middle">{{ item.title }}</a>
+                              <h6 class="text-success">Category - {{ item.get_category_display }}</h6>
+                            </div>
+                          </div>
+                        </th>
+                      </tbody>
+                    </table>
+                  </div>
+                {% endfor %}
+                
+                <!-- END TABLE RESULT -->
+                
+                <!-- BEGIN PAGINATION -->
+                <!-- END PAGINATION -->
+              </div>
+              <!-- END RESULT -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END SEARCH RESULT -->
+    </div>
+    </div>
+    
+{% endblock %}

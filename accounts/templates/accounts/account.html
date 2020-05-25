@@ -1,0 +1,49 @@
+{% extends "products/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <script src="https://use.fontawesome.com/c560c025cf.js"></script>
+    <div class="container">
+        <div class="container">
+            <h2>{{ user.username }}'s Profile</h2>
+            <div></div>
+            
+            <div class="container">
+              <h3>Total Orders:- {{ user.order_set.count }}</h3>
+            </div>
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Order Reference Code</th>
+                  <th scope="col">Order Total</th>
+                  <th scope="col">Payment</th>
+                  <th scope="col">Delivery Date</th>
+                  <th scope="col">Request Refund</th>
+                </tr>
+              </thead>
+              {% for order in user.order_set.all %}
+                <tbody>
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ order.ref_code }}</td>
+                    <td>${{ order.get_total }}</td>
+                    {% if not order.payment %}
+                      <td><i class="fa fa-times-circle"></i></td>
+                    {% else %}
+                      <td><i class="fa fa-check-circle"></i></td>
+                    {% endif %}
+                    <td>{{ order.get_delivery_date }}</td>
+                    {% if order.refund_requested %}
+                      <td class="border-0 align-middle text-dark">Requested</td>
+                    {% elif order.refund_granted %}
+                      <td class="border-0 align-middle text-success">Refund Granted</td>
+                    {% else %}
+                      <td class="border-0 align-middle"><a href="{% url 'request-refund' %}">Request</a></td>
+                    {% endif %}
+                  </tr>
+                </tbody>
+              {% endfor %}
+            </table>
+            <h4 class="py-5">Note: If you have not paid for an order, there will be no reference code for that particular order.</h4>
+{% endblock content %}

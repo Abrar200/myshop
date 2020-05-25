@@ -1,0 +1,167 @@
+
+/*.navbar {
+  margin-bottom: 50px;
+  border-radius: 0;
+}
+
+.jumbotron {
+  margin-bottom: 0;
+}
+
+footer {
+  background-color: #f2f2f2;
+  padding: 25px;
+}*/
+
+.card-header.bg-dark.text-light {
+    margin-bottom: -60px;
+}
+
+input#id_password2 {
+    width: 100%;
+}
+input#id_password1 {
+    width: 100%;
+}
+
+input#id_price {
+    width: 100%;
+}
+
+body {
+  background-color: #ffffff;
+}
+
+  /*hsl(0, 0%, 98%);*/
+}
+
+h1,h2,h3,h4,h5,h6{
+  color:hsl(0, 0%, 30%);
+}
+
+img.d-block.w-100 {
+    margin-top: 56px;
+}
+
+/*h4 {
+    margin-top: 20px;
+}*/
+
+.row.py-5.p-4.bg-white.rounded.shadow-sm {
+  margin-top: -100px;
+}
+
+.box-element{
+  box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+div#carousel-example-1z {
+  margin-top: -60px;
+}
+
+.thumbnail{
+  width: 100%;
+  /*height: 250px;*/
+  -webkit-box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
+    -moz-box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
+    box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
+}
+
+.product{
+  border-radius: 0 0 4px 4px;
+}
+
+.bg-dark{
+  background-color: #000000!important;
+}
+
+
+.col-lg-4, .col-lg-6, .col-lg-8, .col-lg-12{
+  margin-top: 57px;
+  margin-bottom: 10px;
+}
+
+.btn{
+  border-radius: 0;
+}
+
+.row-image{
+  width: 100px;
+}
+
+input#id_password {
+    width: 100%;
+}
+
+.col-md-12 {
+    margin-top: 60px;
+}
+
+textarea#id_message {
+  width: 100%;
+}
+
+input#id_email {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+
+input#id_price__lte {
+    width: 100%;
+    height: 40px;
+}
+
+/*body {
+  background: #FFFFFF;
+  min-height: 100vh;
+}
+
+
+body { padding-top: 70px; }*/
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 0px 0;
+  box-sizing: border-box;
+}
+
+
+/*registration form
+.divider-text {
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.divider-text span {
+    padding: 7px;
+    font-size: 12px;
+    position: relative;   
+    z-index: 2;
+}
+.divider-text:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    top: 55%;
+    left: 0;
+    z-index: 1;
+}
+
+.btn-facebook {
+    background-color: #405D9D;
+    color: #fff;
+}
+.btn-twitter {
+    background-color: #42AEEC;
+    color: #fff;
+}
+
+
+/*payment form*/
